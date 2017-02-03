@@ -1,0 +1,18 @@
+{
+  "name": "Simple Image Resizing Server",
+  "description": "A simple image resizing server...",
+  "keywords": [
+    "image",
+    "resize",
+    "chrome extension"
+  ],
+  "website": "http://www.dropshipwith.me/",
+  "repository": "https://github.com/cafe4it/simple-image-resize-server",
+  "success_url": "/",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs",
+      "url": "https://github.com/alex88/heroku-buildpack-vips"
+    }
+  ]
+}
