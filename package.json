@@ -1,0 +1,28 @@
+{
+  "name": "image-resize-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sharp": "^0.17.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "express-validator": "^3.1.2",
+    "fs": "0.0.1-security",
+    "hat": "0.0.3",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "image-type": "^3.0.0",
+    "lwip": "0.0.9",
+    "request": "^2.79.0",
+    "util": "^0.10.3"
+  }
+}
