@@ -44,8 +44,7 @@ app.get('/resize', function (req, res) {
 		const filename = imageUri.split('/').pop()
 		const ext = filename.split('.').pop()
 		const resMime = mime.lookup(ext)
-		var resizeTransform = sharp().resize(width, height).background({r: 0, g: 0, b: 0, alpha: 0})
-			.embed()
+		var resizeTransform = sharp().resize(width, height).ignoreAspectRatio()
 		res.writeHead(200, {
 			'Content-Type': resMime,
 			'Content-disposition': 'attachment;filename=' + filename
