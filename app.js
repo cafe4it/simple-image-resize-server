@@ -65,6 +65,12 @@ app.get('/resize', function (req, res) {
 			case "CROP":
 				resizeTransform = resizeTransform.crop()
 				break;
+			case "MAX":
+				resizeTransform = resizeTransform.max()
+				break;
+			case "MIN":
+				resizeTransform = resizeTransform.min()
+				break;
 		}
 		res.writeHead(200, {
 			'Content-Type': resMime,
