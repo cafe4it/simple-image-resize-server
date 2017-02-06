@@ -46,7 +46,7 @@ app.get('/resize', function (req, res) {
 		var width = req.query['width']
 		var height = req.query['height'] ? req.query['height'] : width
 		var imageUri = req.query['image_url']
-		var type = req.query('type')
+		var type = req.query['type']
 		width = parseInt(width)
 		height = parseInt(height)
 
