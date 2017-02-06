@@ -20,10 +20,22 @@ app.get('/', function (req, res) {
 		isReady: true
 	})
 })
+app.get('/resize/auto', function (req, res) {
+	req.checkQuery('image_url').notEmpty()
+	req.checkQuery('rules').notEmpty()
 
+	req.getValidationResult().then(function (result) {
+		if (!result.isEmpty()) {
+			res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+			return;
+		}
+
+	})
+})
 app.get('/resize', function (req, res) {
 	req.checkQuery('width').notEmpty().isInt()
 	req.checkQuery('height').optional(true).isInt()
+	req.checkQuery('type').notEmpty()
 	req.checkQuery('image_url').notEmpty()
 
 	req.getValidationResult().then(function (result) {
@@ -34,6 +46,7 @@ app.get('/resize', function (req, res) {
 		var width = req.query['width']
 		var height = req.query['height'] ? req.query['height'] : width
 		var imageUri = req.query['image_url']
+		var type = req.query('type')
 		width = parseInt(width)
 		height = parseInt(height)
 
@@ -44,7 +57,15 @@ app.get('/resize', function (req, res) {
 		const filename = imageUri.split('/').pop()
 		const ext = filename.split('.').pop()
 		const resMime = mime.lookup(ext)
-		var resizeTransform = sharp().resize(width, height).ignoreAspectRatio().jpeg({quality: 90})
+		var resizeTransform = sharp().resize(width, height).jpeg({quality: 90})
+		switch(type){
+			case "STRETCH":
+				resizeTransform = resizeTransform.ignoreAspectRatio()
+				break;
+			case "CROP":
+				resizeTransform = resizeTransform.crop()
+				break;
+		}
 		res.writeHead(200, {
 			'Content-Type': resMime,
 			'Content-disposition': 'attachment;filename=' + filename
