@@ -54,7 +54,7 @@ app.get('/resize', function (req, res) {
 		if (/^https/.test(imageUri)) {
 			httpLib = https;
 		}
-		const filename = imageUri.split('/').pop()
+		var filename = imageUri.split('/').pop()
 		const ext = filename.split('.').pop()
 		var resMime = mime.lookup(ext)
 		var resizeTransform = sharp().resize(width, height)
@@ -73,6 +73,7 @@ app.get('/resize', function (req, res) {
 				break;
 			case "EMBED":
 				resMime = mime.lookup('png')
+				filename = filename.replace('.' + ext, '.png')
 				resizeTransform = resizeTransform
 					.background({r: 0, g: 0, b: 0, alpha: 0})
 					.embed()
