@@ -17,7 +17,8 @@ app.use(expressValidator())
 
 app.get('/', function (req, res) {
 	res.json({
-		isReady: true
+		isReady: true,
+		version: '0.0.1'
 	})
 })
 
