@@ -57,19 +57,25 @@ app.get('/resize', function (req, res) {
 		const filename = imageUri.split('/').pop()
 		const ext = filename.split('.').pop()
 		const resMime = mime.lookup(ext)
-		var resizeTransform = sharp().resize(width, height).jpeg({quality: 90})
+		var resizeTransform = sharp().resize(width, height)
 		switch(type){
 			case "STRETCH":
-				resizeTransform = resizeTransform.ignoreAspectRatio()
+				resizeTransform = resizeTransform.ignoreAspectRatio().jpeg({quality: 90})
 				break;
 			case "CROP":
-				resizeTransform = resizeTransform.crop()
+				resizeTransform = resizeTransform.crop().jpeg({quality: 90})
 				break;
 			case "MAX":
-				resizeTransform = resizeTransform.max()
+				resizeTransform = resizeTransform.max().jpeg({quality: 90})
 				break;
 			case "MIN":
-				resizeTransform = resizeTransform.min()
+				resizeTransform = resizeTransform.min().jpeg({quality: 90})
+				break;
+			case "EMBED":
+				resizeTransform = resizeTransform
+					.background({r: 0, g: 0, b: 0, alpha: 0})
+					.embed()
+					.png()
 				break;
 		}
 		res.writeHead(200, {
