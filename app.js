@@ -20,18 +20,7 @@ app.get('/', function (req, res) {
 		isReady: true
 	})
 })
-app.get('/resize/auto', function (req, res) {
-	req.checkQuery('image_url').notEmpty()
-	req.checkQuery('rules').notEmpty()
 
-	req.getValidationResult().then(function (result) {
-		if (!result.isEmpty()) {
-			res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-			return;
-		}
-
-	})
-})
 app.get('/resize', function (req, res) {
 	req.checkQuery('width').notEmpty().isInt()
 	req.checkQuery('height').optional(true).isInt()
