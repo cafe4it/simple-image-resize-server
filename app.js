@@ -75,7 +75,7 @@ app.get('/resize', function (req, res) {
 				resizeTransform = resizeTransform
 					.background({r: 0, g: 0, b: 0, alpha: 0})
 					.embed()
-					.png()
+					.toFormat(sharp.format.png)
 				break;
 		}
 		res.writeHead(200, {
