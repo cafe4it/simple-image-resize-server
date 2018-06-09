@@ -1,7 +1,7 @@
 module.exports = {
     apps : [
         {
-            name: "ali_seller_rating_server",
+            name: "ali_resize_server",
             script: "./app.js",
             watch: true,
             env: {
