@@ -1,5 +1,6 @@
 var express = require('express'),
-    expressValidator = require('express-validator')
+    expressValidator = require('express-validator'),
+    cors = require('cors');
 var util = require('util'),
     bodyParser = require('body-parser')
 
@@ -149,7 +150,7 @@ function fetchImages(productId, limitPage) {
     }
 }
 
-app.get('/feedback', asyncMiddleware(async function (req, res, next) {
+app.get('/feedback', cors(), asyncMiddleware(async function (req, res, next) {
     req.checkQuery('productId').notEmpty();
     req.checkQuery('_totalPage').notEmpty().isInt();
 
