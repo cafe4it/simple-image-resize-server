@@ -19,7 +19,7 @@ app.use(expressValidator())
 app.get('/', function (req, res) {
     res.json({
         isReady: true,
-        version: '0.0.2'
+        version: '0.0.3'
     })
 })
 
