@@ -23,6 +23,50 @@ app.get('/', function (req, res) {
     })
 })
 
+app.get('/jpeg', function (req, res) {
+    req.checkQuery('image_url').notEmpty()
+    req.getValidationResult().then(function (result) {
+        if (!result.isEmpty()) {
+            res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+            return;
+        }
+        var imageUrl = req.query['image_url']
+        var imageConvert = sharp().jpeg({
+            quality: 100,
+            chromaSubsampling: '4:4:4'
+        })
+        var httpLib = http;
+        if (/^https/.test(imageUrl)) {
+            httpLib = https;
+        }
+
+        var filename = imageUrl.split('/').pop()
+        var ext = filename.split('.').pop()
+        var resMime = mime.lookup('jpg')
+        filename = filename.replace('.' + ext, '.jpg')
+        res.writeHead(200, {
+            'Content-Type': resMime,
+            'Content-disposition': 'attachment;filename=' + filename
+        });
+
+
+        httpLib.get(imageUrl, function (downloadStream) {
+            downloadStream.pipe(imageConvert).pipe(res)
+            downloadStream.on('end', function () {
+                console.log('downloadStream', 'END');
+            });
+
+            downloadStream.on('error', function (err) {
+                console.log('download error', err);
+            });
+
+            imageConvert.on('error', function (err) {
+                console.log('convert Error', err);
+            });
+        });
+    })
+})
+
 app.get('/resize', function (req, res) {
     req.checkQuery('width').notEmpty().isInt()
     req.checkQuery('height').optional(true).isInt()
