@@ -1,0 +1,23 @@
+{
+  "name": "image-resize-server",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node app.js",
+    "start": "NODE_ENV=production node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.4",
+    "express": "^4.14.1",
+    "express-validator": "^3.1.2",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "request": "^2.87.0",
+    "sharp": "^0.17.1",
+    "util": "^0.10.3"
+  }
+}
