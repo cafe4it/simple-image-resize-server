@@ -205,6 +205,20 @@ app.get('/feedback', cors(), asyncMiddleware(async function (req, res, next) {
     res.json(images || [])
 }))
 
+app.get('/checking', function (req, res) {
+    req.checkQuery('url').notEmpty()
+    req.getValidationResult().then(function (result) {
+        if (!result.isEmpty()) {
+            res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
+            return;
+        }
+        const url = req.query['url'];
+        res.json({
+            url: `https://alitems.com/g/1e8d1144946d1cde1c9516525dc3e8/?ulp=${url}&subid=dl2019`
+        })
+    })
+})
+
 var port = process.env.NODE_ENV === 'production' ? 80 : 5001
 
 app.listen(port, function () {
