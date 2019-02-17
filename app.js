@@ -23,6 +23,12 @@ app.get('/', function (req, res) {
     })
 })
 
+app.get('/version', function (req, res) {
+    res.json({
+        version: '1.5.0'
+    })
+})
+
 app.get('/jpeg', function (req, res) {
     req.checkQuery('image_url').notEmpty()
     req.getValidationResult().then(function (result) {
